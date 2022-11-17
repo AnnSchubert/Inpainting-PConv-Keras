@@ -29,7 +29,7 @@ class MaskGenerator():
         self.mask_files = []
         if self.filepath:
             filenames = [f for f in os.listdir(self.filepath)]
-            self.mask_files = [f for f in filenames if any(filetype in f.lower() for filetype in ['.jpeg', '.png', '.jpg'])]
+            self.mask_files = [f for f in filenames if any(filetype in f.lower() for filetype in ['.jpeg', '.png', '.jpg', '.bmp'])]
             print(">> Found {} masks in {}".format(len(self.mask_files), self.filepath))        
 
         # Seed for reproducibility
