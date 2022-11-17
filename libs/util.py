@@ -69,7 +69,7 @@ class MaskGenerator():
         
         return 1-img
 
-    def _load_mask(self, rotation=False, dilation=True, cropping=True):
+    def _load_mask(self, rotation=False, dilation=False, cropping=True):
         """Loads a mask from disk, and optionally augments it"""
 
         # Read image
@@ -88,6 +88,7 @@ class MaskGenerator():
             mask = cv2.erode(mask, kernel, iterations=1)
             
         # Random cropping
+        # kann irgwie nicht ohne durchgeführt werden
         if cropping:
             x = np.random.randint(0, mask.shape[1] - self.width)
             y = np.random.randint(0, mask.shape[0] - self.height)
