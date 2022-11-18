@@ -18,7 +18,7 @@ from libs.pconv_layer import PConv2D
 
 class PConvUnet(object):
 
-    def __init__(self, img_rows=512, img_cols=512, vgg_weights="imagenet", inference_only=False, net_name='default', gpus=1, vgg_device=None):
+    def __init__(self, img_rows=1024, img_cols=5551, vgg_weights="imagenet", inference_only=False, net_name='default', gpus=1, vgg_device=None):
         """Create the PConvUnet. If variable image size, set img_rows and img_cols to None
         
         Args:
