@@ -69,7 +69,7 @@ class MaskGenerator():
         
         return 1-img
 
-    def _load_mask(self, rotation=False, dilation=False, cropping=True):
+    def _load_mask(self, rotation=False, dilation=False, cropping=False):
         """Loads a mask from disk, and optionally augments it"""
 
         # Read image
