@@ -18,7 +18,7 @@ from libs.pconv_layer import PConv2D
 
 class PConvUnet(object):
 
-    def __init__(self, img_rows=1024, img_cols=5551, vgg_weights="imagenet", inference_only=False, net_name='default', gpus=1, vgg_device=None):
+    def __init__(self, img_rows=1024, img_cols=1024, vgg_weights="imagenet", inference_only=False, net_name='default', gpus=1, vgg_device=None):
         """Create the PConvUnet. If variable image size, set img_rows and img_cols to None
         
         Args:
@@ -135,23 +135,23 @@ class PConvUnet(object):
         e_conv7, e_mask7 = encoder_layer(e_conv6, e_mask6, 512, 3)
         e_conv8, e_mask8 = encoder_layer(e_conv7, e_mask7, 512, 3)
 
-        [print(c.shape) for c in [e_conv1, e_conv2, e_conv3, e_conv4, e_conv5, e_conv6, e_conv7, e_conv8]]
+        #[print(c.shape) for c in [e_conv1, e_conv2, e_conv3, e_conv4, e_conv5, e_conv6, e_conv7, e_conv8]]
         
         # DECODER
         def decoder_layer(img_in, mask_in, e_conv, e_mask, filters, kernel_size, bn=True):
             up_img = UpSampling2D(size=(2,2))(img_in)
-            print('up_img ', up_img.shape)
-            print('e_conv ', e_conv.shape)
+            #print('up_img ', up_img.shape)
+            #print('e_conv ', e_conv.shape)
             up_mask = UpSampling2D(size=(2,2))(mask_in)
             concat_img = Concatenate(axis=3)([e_conv,up_img])
-            print('concat_img ', concat_img.shape)
+            #print('concat_img ', concat_img.shape)
             concat_mask = Concatenate(axis=3)([e_mask,up_mask])
             conv, mask = PConv2D(filters, kernel_size, padding='same')([concat_img, concat_mask])
             if bn:
                 conv = BatchNormalization()(conv)
             conv = LeakyReLU(alpha=0.2)(conv)
-            print('conv ', conv.shape)
-            print('end')
+            #print('conv ', conv.shape)
+            #print('end')
             return conv, mask
             
         d_conv9, d_mask9 = decoder_layer(e_conv8, e_mask8, e_conv7, e_mask7, 512, 3)
